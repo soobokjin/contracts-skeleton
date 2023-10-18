@@ -3,17 +3,21 @@ import "@nomicfoundation/hardhat-toolbox";
 import "@openzeppelin/hardhat-upgrades";
 import "@nomiclabs/hardhat-ganache";
 
+import { config as dotenvConfig } from "dotenv";
+import { resolve } from "path";
+
 import deployContracts from "./tasks/deploy";
 import deployContractsV2 from "./tasks/deploy-v2";
 import voteTask from "./tasks/vote";
+dotenvConfig({ path: resolve(__dirname, "./.env") });
 
 // Setup Task
 deployContracts();
 deployContractsV2();
 voteTask();
 
-const ALCHEMY_API_KEY = "";
-const DEPLOYER_PRIVATE_KEY = "";
+const ALCHEMY_API_KEY: string = process.env.ALCHEMY_API_KEY || "";
+const DEPLOYER_PRIVATE_KEY: string = process.env.DEPLOYER_PRIVATE_KEY || "";
 
 const config: HardhatUserConfig = {
   solidity: "0.8.20",
@@ -42,7 +46,7 @@ const config: HardhatUserConfig = {
     },
     localhost: {
       url: "http://0.0.0.0:8545",
-      accounts: [""],
+      accounts: [DEPLOYER_PRIVATE_KEY],
     },
   },
 };
