@@ -1,5 +1,4 @@
 import { task } from "hardhat/config";
-import { VoteV1 } from "../typechain-types";
 
 function deployContractsV2() {
   task("deploy-v2", "(custom task) deploy contracts").setAction(
